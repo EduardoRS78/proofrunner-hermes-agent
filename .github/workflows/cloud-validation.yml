@@ -1,0 +1,105 @@
+name: Cloud release validation
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install ProofRunner
+        run: python -m pip install -e ".[test]"
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run unit and browser tests
+        run: python -m pytest -q
+
+      - name: Run passing demo
+        run: proofrunner demo
+
+      - name: Verify deliberate failure detection
+        shell: bash
+        run: |
+          set +e
+          proofrunner demo --broken
+          code=$?
+          set -e
+          if [ "$code" -ne 1 ]; then
+            echo "Expected deliberate acceptance failure exit code 1, got $code"
+            exit 1
+          fi
+
+      - name: Official Agent Index client self-check
+        run: python scripts/index.py self-check
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: proofrunner-cloud-evidence
+          path: runs/
+          if-no-files-found: warn
+
+  hermes-live:
+    needs: release-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      HERMES_HOME: ${{ github.workspace }}/.hermes
+      PROOFRUNNER_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PROOFRUNNER_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai/
+      PROOFRUNNER_MODEL: gemini-2.5-flash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check whether Gemini secret is configured
+        id: key
+        shell: bash
+        run: |
+          if [ -n "$PROOFRUNNER_API_KEY" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "Hermes live validation skipped: add repository secret GEMINI_API_KEY."
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.key.outputs.available == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Hermes at inspected revision
+        if: steps.key.outputs.available == 'true'
+        shell: bash
+        run: |
+          git clone https://github.com/NousResearch/hermes-agent.git ../hermes-agent
+          git -C ../hermes-agent checkout 10652c93451fb760435d39d1ce4fd8a9441d18b9
+          python -m pip install -e ../hermes-agent
+          python -m pip install -e ".[test]"
+          python -m playwright install --with-deps chromium
+
+      - name: Run ProofRunner with real Hermes inference
+        if: steps.key.outputs.available == 'true'
+        run: proofrunner demo --planner hermes
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.key.outputs.available == 'true'
+        with:
+          name: proofrunner-hermes-live-evidence
+          path: runs/
+          if-no-files-found: warn
