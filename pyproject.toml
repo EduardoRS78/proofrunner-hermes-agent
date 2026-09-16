@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proofrunner"
+version = "0.1.0"
+description = "Web acceptance testing with reproducible evidence, built for Hermes"
+requires-python = ">=3.11"
+dependencies = ["playwright==1.63.0"]
+license = "MIT"
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+proofrunner = "proofrunner.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+proofrunner = ["demo.html"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

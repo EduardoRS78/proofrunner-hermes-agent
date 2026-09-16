@@ -1,0 +1,7 @@
+Fill secret "Email" with "PR_TEST_USER"
+Fill secret "Password" with "PR_TEST_PASSWORD"
+Click "Sign In"
+Verify visible "Dashboard"
+Click "Add to cart"
+Verify "cart-count" equals "1"
+Verify "cart-total" equals "R$ 100,00"

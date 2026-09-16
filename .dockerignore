@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+plow-credentials
+.venv
+__pycache__
+runs
+.hermes
+.agent-index
+dist

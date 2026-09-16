@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+plow-credentials
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+runs/
+.hermes/
+.agent-index/
+.agent-index.json
+build/
+dist/
+vendor/agent_index_client.py

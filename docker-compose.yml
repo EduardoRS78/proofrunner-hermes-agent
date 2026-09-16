@@ -1,0 +1,26 @@
+services:
+  proofrunner:
+    build: .
+    env_file: .env
+    environment:
+      HERMES_HOME: /data/hermes
+    volumes:
+      - hermes-data:/data/hermes
+      - ./runs:/app/runs
+      - ./examples:/app/examples:ro
+    shm_size: 1gb
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+  reporter:
+    build: .
+    profiles: ["index"]
+    env_file: .env
+    environment:
+      HERMES_HOME: /data/hermes
+    entrypoint: ["python", "/app/scripts/index.py", "loop"]
+    volumes:
+      - hermes-data:/data/hermes
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+volumes:
+  hermes-data:

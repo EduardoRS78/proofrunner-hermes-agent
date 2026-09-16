@@ -1,0 +1,5 @@
+Open the sign-in page. Enter the test username from PR_TEST_USER and
+the test password from PR_TEST_PASSWORD. Sign in and confirm that the
+Dashboard heading is visible. Add the Field Notes Notebook to the cart.
+Confirm that the cart counter equals 1 and that the total equals R$ 100,00.
+Stop before any purchase or payment.

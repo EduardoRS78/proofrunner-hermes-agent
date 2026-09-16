@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "name": "Acceptance journey",
+  "url": "http://127.0.0.1:38993/",
+  "started": "2026-09-16T02:36:14.930577+00:00",
+  "duration": 6.01,
+  "result": "FAIL",
+  "planner": "controlled",
+  "prompt": "Fill \"Email\" with \"test@example.com\"\nFill secret \"Password\" with \"PR_TEST_PASSWORD\"\nClick \"Sign In\"\nVerify visible \"Dashboard\"\nClick \"Add to cart\"\nVerify \"cart-count\" equals \"1\"\nVerify \"cart-total\" equals \"R$ 100,00\"",
+  "plan": {
+    "name": "Acceptance journey",
+    "steps": [
+      {
+        "action": "fill",
+        "target": "Email",
+        "value": "test@example.com",
+        "expected": "",
+        "by": "label",
+        "role": ""
+      },
+      {
+        "action": "fill_secret",
+        "target": "Password",
+        "value": "PR_TEST_PASSWORD",
+        "expected": "",
+        "by": "label",
+        "role": ""
+      },
+      {
+        "action": "click",
+        "target": "Sign In",
+        "value": "",
+        "expected": "",
+        "by": "role",
+        "role": "button"
+      },
+      {
+        "action": "assert_visible",
+        "target": "Dashboard",
+        "value": "",
+        "expected": "",
+        "by": "role",
+        "role": "heading"
+      },
+      {
+        "action": "click",
+        "target": "Add to cart",
+        "value": "",
+        "expected": "",
+        "by": "role",
+        "role": "button"
+      },
+      {
+        "action": "assert_text",
+        "target": "cart-count",
+        "value": "",
+        "expected": "1",
+        "by": "testid",
+        "role": ""
+      },
+      {
+        "action": "assert_text",
+        "target": "cart-total",
+        "value": "",
+        "expected": "R$ 100,00",
+        "by": "auto",
+        "role": ""
+      }
+    ]
+  },
+  "steps": [
+    {
+      "action": "fill",
+      "target": "Email",
+      "value": "test@example.com",
+      "expected": "",
+      "by": "label",
+      "role": "",
+      "status": "PASS",
+      "started": "2026-09-16T02:36:15.317216+00:00",
+      "duration": 0.057,
+      "observed": "Field filled (value omitted)",
+      "url": "http://127.0.0.1:38993/",
+      "screenshot": "screenshots/step-01.png"
+    },
+    {
+      "action": "fill_secret",
+      "target": "Password",
+      "value": "PR_TEST_PASSWORD",
+      "expected": "",
+      "by": "label",
+      "role": "",
+      "status": "PASS",
+      "started": "2026-09-16T02:36:15.462334+00:00",
+      "duration": 0.014,
+      "observed": "Field filled (value omitted)",
+      "url": "http://127.0.0.1:38993/",
+      "screenshot": "screenshots/step-02.png"
+    },
+    {
+      "action": "click",
+      "target": "Sign In",
+      "value": "",
+      "expected": "",
+      "by": "role",
+      "role": "button",
+      "status": "PASS",
+      "started": "2026-09-16T02:36:15.518478+00:00",
+      "duration": 0.047,
+      "observed": "Click completed; see subsequent assertions for acceptance",
+      "url": "http://127.0.0.1:38993/",
+      "screenshot": "screenshots/step-03.png"
+    },
+    {
+      "action": "assert_visible",
+      "target": "Dashboard",
+      "value": "",
+      "expected": "",
+      "by": "role",
+      "role": "heading",
+      "status": "PASS",
+      "started": "2026-09-16T02:36:15.633722+00:00",
+      "duration": 0.02,
+      "observed": "Element visible",
+      "url": "http://127.0.0.1:38993/",
+      "screenshot": "screenshots/step-04.png"
+    },
+    {
+      "action": "click",
+      "target": "Add to cart",
+      "value": "",
+      "expected": "",
+      "by": "role",
+      "role": "button",
+      "status": "PASS",
+      "started": "2026-09-16T02:36:15.716231+00:00",
+      "duration": 0.041,
+      "observed": "Click completed; see subsequent assertions for acceptance",
+      "url": "http://127.0.0.1:38993/",
+      "screenshot": "screenshots/step-05.png"
+    },
+    {
+      "action": "assert_text",
+      "target": "cart-count",
+      "value": "",
+      "expected": "1",
+      "by": "testid",
+      "role": "",
+      "status": "FAIL",
+      "started": "2026-09-16T02:36:15.832796+00:00",
+      "duration": 5.022,
+      "observed": "Locator expected to have text '1'\nActual value: 0 \nCall log:\n  - Expect \"to_have_text\" get_by_test_id(\"cart-count\") with timeout 5000ms\n  - waiting for get_by_test_id(\"cart-count\")\n    14 × locator resolved to <span aria-label=\"Cart count\" data-testid=\"cart-count\">0</span>\n       - unexpected value \"0\"\n\nAria snapshot:\n- text: \"0\"",
+      "url": "http://127.0.0.1:38993/",
+      "screenshot": "screenshots/step-06.png"
+    },
+    {
+      "action": "assert_text",
+      "target": "cart-total",
+      "value": "",
+      "expected": "R$ 100,00",
+      "by": "auto",
+      "role": "",
+      "status": "SKIPPED",
+      "started": "2026-09-16T02:36:20.916378+00:00",
+      "duration": 0,
+      "observed": "Not executed after previous failure"
+    }
+  ],
+  "network_errors": [],
+  "blocked_requests": [],
+  "local_demo": true,
+  "demo_broken": true
+}

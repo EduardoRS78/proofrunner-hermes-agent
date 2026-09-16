@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>ProofRunner · Demo Store</title><style>
+body{font:18px/1.6 system-ui;background:#f0f5fa;color:#132637;margin:0}header{background:#132637;color:white;padding:22px 8%;display:flex;justify-content:space-between}main{max-width:850px;margin:50px auto;padding:28px}section{background:white;border:1px solid #d3dee9;border-radius:16px;padding:32px}label{display:block;margin:16px 0}input{display:block;padding:12px;border:1px solid #9fb0c0;border-radius:6px;font:inherit;width:90%}button{background:#166449;color:white;border:0;border-radius:7px;font:inherit;padding:12px 22px;cursor:pointer}.badge{color:#537083;font-size:14px;letter-spacing:2px}h1{font-size:40px;line-height:1.2}h2{font-size:28px}.price{font-size:32px;color:#166449}#dashboard{display:none}footer{color:#537083;font-size:14px;margin-top:24px}</style>
+<header><b>ProofRunner / Demo Store</b><span>LOCAL TEST FIXTURE</span></header><main>
+<section id="login"><div class="badge">ACCEPTANCE JOURNEY / 01</div><h1>Welcome back.</h1><p>A deterministic store for testing login and cart acceptance.</p>
+<form id="login-form"><label>Email<input id="email" type="email" required autocomplete="off"></label><label>Password<input id="password" type="password" required autocomplete="off"></label><button>Sign In</button></form><p id="error" role="alert"></p></section>
+<section id="dashboard"><div class="badge">ACCEPTANCE JOURNEY / 02</div><h1>Dashboard</h1><p>Welcome to the demo store.</p><h2>Field Notes Notebook</h2><p>One notebook. One clear acceptance criterion.</p><p class="price">R$ 100,00</p><button id="add">Add to cart</button><p>Cart: <span data-testid="cart-count" aria-label="Cart count">0</span></p><p>Total: <span data-testid="cart-total">R$ 0,00</span></p><button id="checkout" disabled>Checkout unavailable in demo</button></section>
+<footer>No payment processing, emails, external requests, or real accounts. Refresh to reset.</footer></main>
+<script>
+const query=new URLSearchParams(location.search);
+document.querySelector('#login-form').onsubmit=e=>{e.preventDefault();if(document.querySelector('#email').value==='test@example.com'&&document.querySelector('#password').value==='demo-pass') {document.querySelector('#login').style.display='none';document.querySelector('#dashboard').style.display='block';}else document.querySelector('#error').textContent='Invalid credentials';};
+document.querySelector('#add').onclick=()=>{document.querySelector('[data-testid="cart-count"]').textContent=query.has('broken')?'0':'1';document.querySelector('[data-testid="cart-total"]').textContent='R$ 100,00';};
+</script></html>
