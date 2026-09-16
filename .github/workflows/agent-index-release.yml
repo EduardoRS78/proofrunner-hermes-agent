@@ -1,0 +1,66 @@
+name: Agent Index release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  register-run-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      HERMES_HOME: ${{ github.workspace }}/.hermes
+      AGENT_ID: proofrunner-eduardors78
+      PLOW_AGENT_TOKEN: ${{ secrets.PLOW_AGENT_TOKEN }}
+      PROOFRUNNER_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PROOFRUNNER_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai/
+      PROOFRUNNER_MODEL: gemini-3.6-flash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Require protected credentials
+        shell: bash
+        run: |
+          test -n "$PLOW_AGENT_TOKEN" || { echo "Missing repository secret PLOW_AGENT_TOKEN"; exit 2; }
+          test -n "$PROOFRUNNER_API_KEY" || { echo "Missing repository secret GEMINI_API_KEY"; exit 2; }
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Hermes and ProofRunner
+        shell: bash
+        run: |
+          git clone https://github.com/NousResearch/hermes-agent.git ../hermes-agent
+          git -C ../hermes-agent checkout 10652c93451fb760435d39d1ce4fd8a9441d18b9
+          python -m pip install -e ../hermes-agent
+          python -m pip install -e ".[test]"
+          python -m playwright install --with-deps chromium
+
+      - name: Verify official Agent Index client
+        run: python scripts/index.py self-check
+
+      - name: Register ProofRunner
+        run: python scripts/index.py register --repo https://github.com/EduardoRS78/proofrunner-hermes-agent
+
+      - name: Generate real Hermes usage and evidence
+        run: proofrunner demo --planner hermes
+
+      - name: Preview official usage report
+        run: python scripts/index.py dry-run
+
+      - name: Submit official usage report
+        run: python scripts/index.py report
+
+      - name: Check registration status
+        run: python scripts/index.py status
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: proofrunner-agent-index-evidence
+          path: runs/
+          if-no-files-found: warn
