@@ -29,12 +29,11 @@ git clone https://github.com/plow-pbc/plow-agents.git
 ../plow-agents/bin/plow-agents mint <free-line-id>
 ```
 
-The CLI is Python; on Windows use `python ../plow-agents/bin/plow-agents ...`
-if the shebang is not executable. The current README says login requires
-texting an activation phrase. **We have not verified that credential issuance
-works from this user's non-Apple setup.** Ask the organizers for the supported
-non-Mac/non-iPhone token route if activation is unavailable; do not bypass it.
-Keep the minted credentials local and out of Git.
+The CLI is Python; on Windows, use it from WSL with
+`python3 ../plow-agents/bin/plow-agents ...`. SMS activation and credential
+minting were successfully completed from WSL on Windows. Keep the minted
+credentials local and out of Git; GitHub Actions receives only the protected
+`PLOW_AGENT_TOKEN` repository secret.
 
 ## Publish and report
 
@@ -79,6 +78,9 @@ win, and verification begins September 14, 2026. A successful API registration
 does not make an agent Verified. One-click Plow hosting is coordinated with
 the Plow team; it is not required for the local executor to run.
 
-No real registration, token report, verification request or organizer message
-was sent during this build. A live credential and successful Hermes run are
-still release gates. See validation.md for exact test coverage.
+ProofRunner was registered as `proofrunner-eduardors78` on September 16,
+2026. The release workflow completed a real Hermes run with
+`gemini-3.6-flash`, submitted 1,214 measured tokens through the official
+client, confirmed registered status, and uploaded the generated evidence.
+Manual organizer verification remains outstanding. See validation.md for exact
+test coverage.
