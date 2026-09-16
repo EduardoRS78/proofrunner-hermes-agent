@@ -1,3 +1,4 @@
+# Re-run requested after configuring GEMINI_API_KEY.
 name: Cloud release validation
 
 on:
