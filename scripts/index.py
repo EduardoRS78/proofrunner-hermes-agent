@@ -28,9 +28,11 @@ def main():
         if not args.repo.startswith("https://github.com/"):
             parser.error("--repo must be the actual newly published public GitHub repository URL")
         return invoke("--register", "--agent", agent, "--name", "ProofRunner",
-                      "--blurb", "Describe a user journey. ProofRunner runs it and produces acceptance evidence.",
+                      "--blurb", "AI-powered web acceptance agent that turns a natural-language journey into a real Chromium run with frozen assertions, step screenshots, and replayable PASS/FAIL evidence.",
                       "--runtime", "Hermes", "--repo", args.repo,
-                      "--install-url", args.repo + "/blob/main/docs/installation.md")
+                      "--install-url", args.repo + "/blob/main/docs/installation.md",
+                      "--image", args.repo + "/raw/main/examples/evidence/pass/screenshots/step-07.png",
+                      "--image", args.repo + "/raw/main/examples/evidence/fail/screenshots/step-06.png")
     if args.mode == "dry-run":
         return invoke("--agent", agent, "--dry-run")
     if args.mode == "report":
