@@ -63,7 +63,7 @@ jobs:
       HERMES_HOME: ${{ github.workspace }}/.hermes
       PROOFRUNNER_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       PROOFRUNNER_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai/
-      PROOFRUNNER_MODEL: gemini-2.5-flash
+      PROOFRUNNER_MODEL: gemini-3.6-flash
     steps:
       - uses: actions/checkout@v4
 
