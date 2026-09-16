@@ -1,9 +1,9 @@
 # Validation status — September 16, 2026
 
-This is a tested browser/evidence MVP with a Hermes adapter. It is **not yet
-a fully validated hackathon release**. No real inference credential was
-available, no public repository was created, and no Agent Index registration
-or verification request was submitted.
+ProofRunner is a tested browser/evidence MVP with a live Hermes integration.
+The repository is public, the agent is registered on the AI Worth Using Agent
+Index, and the official client has successfully submitted measured model usage.
+Manual organizer verification remains outstanding.
 
 ## Executed successfully
 
@@ -11,51 +11,51 @@ or verification request was submitted.
 |---|---|
 | Editable Python package installation | Succeeded on Linux / Python 3.12 |
 | Core parser, strict schema, safety policy, redaction and report escaping | 13 tests passed |
-| Real browser integration | 3 tests passed |
-| Real Hermes SDK with local deterministic provider stub | 1 test passed; not real model reasoning |
+| Real browser integration | 3 tests passed with Chromium |
 | Official pinned Agent Index client self-check | Passed |
-| CLI demo: login, cart count 1, total R$ 100,00 | PASS, seven screenshots |
-| CLI broken demo: count stays 0 | FAIL at step 6; step 7 SKIPPED |
+| Controlled CLI demo: login, cart count 1, total R$ 100,00 | PASS with seven screenshots |
+| Deliberately broken demo: count stays 0 | FAIL at step 6; step 7 SKIPPED |
 | Replay of the successful demo | PASS in a fresh browser/fixture |
-| Visual inspection | Final store screenshot and rendered HTML report checked |
+| Windows smoke run | PASS on the user's Windows machine |
+| Cloud release validation | Passed on GitHub Actions / Ubuntu |
+| Live Hermes planner | Passed with `gemini-3.6-flash` |
+| Agent Index registration | Registered as `proofrunner-eduardors78` |
+| Official usage reporting | HTTP 200; 1,214 measured tokens submitted |
+| Release evidence artifact | Uploaded by GitHub Actions |
 
 The browser tests cover the successful journey, an intentional acceptance
-failure with unchanged expected value, and stopping an unauthorized click.
-They use a real Chromium browser, not DOM mocks. HTML and execution JSON
-include actual timestamps, locators and observed outcomes.
+failure with the original expectation preserved, and stopping an unauthorized
+click. They use a real Chromium browser rather than DOM mocks. HTML and
+execution JSON contain actual timestamps, locators, observed outcomes, and
+step screenshots.
 
-The standard Playwright browser download timed out in this environment.
-Validation used Playwright Python 1.63.0 with Chromium 153.0.8010.0 supplied
-by `@sparticuz/chromium` 153.0.0 and the explicit executable-path setting.
-That temporary binary is not included in the repository or deliverable.
+The live release workflow installs the pinned Hermes revision, runs
+`proofrunner demo --planner hermes`, previews the official usage payload,
+submits it through the official Agent Index client, confirms registered status,
+and uploads the generated evidence. Secrets are stored only as protected GitHub
+Actions secrets.
 
-Hermes at commit `10652c93451fb760435d39d1ce4fd8a9441d18b9` was installed and
-imported successfully. The adapter contract test exercised its real streaming
-inference client against a local test server returning a known plan. This
-isolated test home has zero reported tokens and was never registered with
-the Index. It does not validate natural-language reasoning, paid provider
-authentication, or live usage reporting.
+Agent page:
+https://aiworthusing.com/agent-index/proofrunner-eduardors78
 
-## Still required
+Successful release run:
+https://github.com/EduardoRS78/proofrunner-hermes-agent/actions/runs/35150173135
 
-1. Configure a real inference provider and run `proofrunner demo --planner
-   hermes`, followed by a free-form journey on an authorized staging site.
-2. Build the Docker image (Docker is not installed in the build environment).
-3. Run the Windows installation smoke test on the user's machine.
-4. Create the new public GitHub repository, then push the tested commits.
-5. Obtain an official Plow credential, register and send a real usage report.
-6. Request manual Verified review and confirm deadline/judging ambiguities.
+## Still required or recommended
 
-The connected GitHub tools expose file/commit operations and authenticated
-profile access, but no new-repository creation operation. Publication needs
-the user to create the new repository first or provide a supported creation
-capability. No existing user repository was changed.
+1. Request and pass the manual **Verified** organizer review.
+2. Record a short public demo video and add its YouTube video ID to the listing.
+3. Run a free-form journey against an authorized staging application.
+4. Build and smoke-test the optional Docker image.
+5. Keep the same registered install state when reporting future real usage;
+   never reset identity or manufacture usage.
 
 ## Evidence included
 
-- `examples/evidence/pass/`: actual successful controlled-English run.
-- `examples/evidence/fail/`: actual broken controlled-English run.
+- `examples/evidence/pass/`: successful controlled-English browser run.
+- `examples/evidence/fail/`: deliberate acceptance failure.
+- GitHub Actions artifact `proofrunner-agent-index-evidence`: live Hermes run.
 
-These examples are deliberately labeled controlled, not Hermes-generated.
-Open `report.html` beside its screenshot folder. Running the demos again
-creates new evidence under `runs/` instead of modifying these reference runs.
+The committed controlled examples are deliberately labeled as controlled rather
+than Hermes-generated. Running the demos again creates new evidence under
+`runs/` instead of modifying these reference runs.
