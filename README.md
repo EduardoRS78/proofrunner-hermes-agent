@@ -85,6 +85,10 @@ Open the HTML locally. Reports do not require a server or external fonts.
 Actual captured examples: [PASS](examples/evidence/pass/report.html) and
 [deliberate FAIL](examples/evidence/fail/report.html).
 
+| Successful acceptance evidence | Deliberate failure detected |
+|---|---|
+| ![ProofRunner PASS evidence](examples/evidence/pass/screenshots/step-07.png) | ![ProofRunner FAIL evidence](examples/evidence/fail/screenshots/step-06.png) |
+
 ```sh
 proofrunner replay runs/<run-directory> --allow-interactions
 ```
@@ -138,8 +142,10 @@ No macOS, iPhone, iMessage, or Plow Latch dependency is required.
 
 Uses the official [agent-index-client](https://github.com/plow-pbc/agent-index-client),
 downloaded at a fixed commit and verified by SHA-256. No replacement API or
-fabricated usage. Registration requires a Plow token; verification is a
-separate manual organizer action. See [Agent Index setup](docs/agent-index.md).
+fabricated usage. ProofRunner is registered with real Hermes usage reporting at
+[AI Worth Using Agent Index](https://aiworthusing.com/agent-index/proofrunner-eduardors78).
+Verified status remains a separate manual organizer review. See
+[Agent Index setup](docs/agent-index.md).
 
 ## Tests / current validation
 
@@ -164,5 +170,5 @@ in this MVP. Password-recovery email retrieval is not implemented.
 ProofRunner is MIT licensed. Dependencies retain their own licenses; the
 downloaded official Agent Index client is Apache-2.0. No competitor code is
 included. See [rules and research](docs/research.md) for the September 16,
-2026 findings, ranking discrepancy, and submission gates. This repository is
-not a claim that the agent is already registered, Verified, or prize-eligible.
+2026 findings, ranking discrepancy, and submission gates. The agent is registered and reporting real usage. Verified status and final
+prize eligibility remain decisions of the organizers.
