@@ -3,8 +3,8 @@ import hashlib
 from pathlib import Path
 from urllib.request import urlopen
 
-SHA = "87901f8b182a8a7c65ee3dd7267f8f835ee2a545"
-HASH = "c3bf54ed37aec22704b8003a7ff6385a1fd3ef49207ce55613ddc41df36a1b01"
+SHA = "3f116994930cb3d1c23a485851953dd6c1eef039"
+HASH = "b23e7db974b1bd00b50557b44d759df170fc6ef17b471c9cfc0cd975843b535c"
 URL = f"https://raw.githubusercontent.com/plow-pbc/agent-index-client/{SHA}/standalone/agent_index_client.py"
 
 def main():
