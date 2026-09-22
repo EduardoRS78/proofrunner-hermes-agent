@@ -1,0 +1,3 @@
+Verify visible "Example Domain".
+Verify "Example Domain" equals "Example Domain".
+Verify URL "https://example.com/".
