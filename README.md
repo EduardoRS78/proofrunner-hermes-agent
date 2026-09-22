@@ -45,6 +45,37 @@ an LLM. This makes browser acceptance and report generation reproducible
 without an API key. To test the actual Hermes planner, install/configure
 Hermes and run `proofrunner demo --planner hermes`.
 
+### Simplified Windows setup
+
+A first-time Windows user needs Python 3.11-3.13 and Git. Clone the project,
+then install everything from PowerShell:
+
+```powershell
+git clone https://github.com/EduardoRS78/proofrunner-hermes-agent.git
+cd proofrunner-hermes-agent
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\setup.ps1
+```
+
+Then run the included read-only test against a real public website:
+
+```powershell
+.\run.ps1 -Url "https://example.com/"
+```
+
+The included journey matches `example.com`. For another authorized website,
+create a matching UTF-8 journey file and pass it with `-JourneyFile`:
+
+```powershell
+.\run.ps1 -Url "https://your-authorized-site.example/" `
+  -JourneyFile ".\my-journey.txt"
+```
+
+Use `-Planner hermes` for free-form instructions after Hermes and an LLM
+provider are configured. Add `-AllowInteractions` only when you intend to
+authorize clicks or form input on that test origin. See the dedicated
+[Windows quick start](QUICKSTART-WINDOWS.md) for more details.
+
 ## Usage / example prompts
 
 Put a free-form journey in a UTF-8 file, for example:
