@@ -33,6 +33,18 @@ jobs:
       - name: Run passing demo
         run: proofrunner demo
 
+      - name: Run public website read-only smoke test
+        shell: bash
+        run: |
+          printf '%s\n' \
+            'Verify visible "Example Domain".' \
+            'Verify "Example Domain" equals "Example Domain".' \
+            'Verify URL "https://example.com/".' \
+          | proofrunner run https://example.com/ \
+              --journey /dev/stdin \
+              --planner controlled \
+              --output runs/public-site
+
       - name: Verify deliberate failure detection
         shell: bash
         run: |
